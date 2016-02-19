@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^messages/$', views.messages, name='messages'),
     # Ajax: check if user exists
     url(r'^checkuser/$', views.checkuser, name='checkuser'),
+    # Allows them to change the password
+    url(r'^changepassword/$', views.changepassword, name='changepassword'),
 ]
 
 
