@@ -239,9 +239,9 @@ def changepassword(request):
         return HttpResponse(template.render(somecontext))
     else:
         try:
-            username= request.POST[username]
-            currentpass= request.POST[CP];
-            newpass= request.POST[NP];
+            username= request.POST['username']
+            currentpass= request.POST['CP'];
+            newpass= request.POST['NP'];
 
             member = Member.objects.get(pk=username)
             if member.password==currentpass:
