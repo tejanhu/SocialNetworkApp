@@ -229,3 +229,18 @@ def checkuser(request):
             return render(request, "social/username_taken.html", RequestContext(request, locals()))
         else:
             return render(request, "social/username_free.html", RequestContext(request, locals()))
+
+
+
+def changepassword(request):
+    if 'user' in request.POST:
+        username= request.POST[username]
+        currentpass= request.POST[CP];
+        newpass= request.POST[NP];
+        try:
+            member = Member.objects.get(pk=username)
+            if member.password==currentpass:
+                member.password=newpass
+
+        except Member.DoesNotExist:
+            member=None
