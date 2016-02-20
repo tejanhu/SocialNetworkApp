@@ -233,15 +233,15 @@ def checkuser(request):
 
 
 def changepassword(request):
-    if 'user' not in request.POST:
+    if 'username' not in request.POST:
         somecontext= RequestContext(request,{'appname':appname,})
         template = loader.get_template('social/changepassword.html')
         return HttpResponse(template.render(somecontext))
     else:
         try:
             username= request.POST['username']
-            currentpass= request.POST['CP'];
-            newpass= request.POST['NP'];
+            currentpass= request.POST['CP']
+            newpass= request.POST['NP']
 
             member = Member.objects.get(pk=username)
             if member.password==currentpass:
