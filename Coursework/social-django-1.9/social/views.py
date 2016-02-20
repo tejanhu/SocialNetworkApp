@@ -34,7 +34,8 @@ def signup(request):
 def register(request):
     u = request.POST['user']
     p = request.POST['pass']
-    form.instance.password = hash_password(clean['password'])
+ #Below is what caused it to stop working
+ #   form.instance.password = hash_password(clean['password'])
     user = Member(username=u, password=p)
     user.save()
     template = loader.get_template('social/user-registered.html')    
