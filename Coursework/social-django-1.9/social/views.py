@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader
 from social.models import Member, Profile, Message
-
+from django.db.models import Q
 appname = 'Facemagazine'
 
 # decorator that tests whether user is logged in
@@ -151,10 +151,11 @@ def members(request):
         following = member_obj.following.all()
         # list of people that are following me
         followers = Member.objects.filter(following__username=username)
+
         #recommended followers
         listOFFOLS=[];
         for followee in following:
-           followee_friends= list(followee.following.all().exclude(pk=member_obj.username).values())
+           followee_friends= list(followee.following.all().exclude(Q(following__username=username)&Q(pk=username)).values())
            print ("some crap happened")
            listOFFOLS.extend(followee_friends)
         #render reponse
