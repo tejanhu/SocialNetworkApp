@@ -38,11 +38,11 @@ def register(request):
  #   form.instance.password = hash_password(clean['password'])
     user = Member(username=u, password=p)
     user.save()
-    template = loader.get_template('social/user-registered.html')    
+    template = loader.get_template('social/user-registered.html')
     context = RequestContext(request, {
         'appname': appname,
         'username' : u
-	
+
         })
     return HttpResponse(template.render(context))
 
@@ -69,7 +69,7 @@ def login(request):
                 'loggedin': True}
                 )
         else:
-            return HttpResponse("Wrong password") 
+            return HttpResponse("Wrong password")
 
 @loggedin
 def friends(request):
@@ -93,7 +93,7 @@ def friends(request):
 def logout(request):
     if 'username' in request.session:
         u = request.session['username']
-        request.session.flush()        
+        request.session.flush()
         template = loader.get_template('social/logout.html')
         context = RequestContext(request, {
                 'appname': appname,
@@ -151,14 +151,22 @@ def members(request):
         following = member_obj.following.all()
         # list of people that are following me
         followers = Member.objects.filter(following__username=username)
-        # render reponse
+        #recommended followers
+        listOFFOLS=[];
+        for followee in following:
+           bobo= list(followee.following.all().exclude(pk=member_obj.username).values())
+           print ("some crap happened")
+           listOFFOLS.extend(bobo)
+        #render reponse
         return render(request, 'social/members.html', {
             'appname': appname,
             'username': username,
             'members': members,
             'following': following,
             'followers': followers,
-            'loggedin': True}
+            'loggedin': True,
+            'RF':listOFFOLS
+             }
             )
 
 @loggedin
