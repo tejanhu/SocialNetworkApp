@@ -154,9 +154,9 @@ def members(request):
         #recommended followers
         listOFFOLS=[];
         for followee in following:
-           bobo= list(followee.following.all().exclude(pk=member_obj.username).values())
+           followee_friends= list(followee.following.all().exclude(pk=member_obj.username).values())
            print ("some crap happened")
-           listOFFOLS.extend(bobo)
+           listOFFOLS.extend(followee_friends)
         #render reponse
         return render(request, 'social/members.html', {
             'appname': appname,
