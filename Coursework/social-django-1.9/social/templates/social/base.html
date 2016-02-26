@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title>Social Network: {{ appname }}</title>
+    <script> src ="% static 'social/jquery-1.12.1.min.js' %"</script>
 	<link rel="stylesheet" type="text/css" href="{% static 'social/styles.css' %}" />
 </head>
 <body>
@@ -28,6 +29,7 @@
 		<li><a href='/social/'>Home</a></li>
 		<li><a href="/social/signup/">Sign up</a></li>
 		<li><a href='/social/login/'>Log in</a></li>
+        <li><input name = person >  <a href='/social/searchsomething person.value/'><button></button></a> </li>
 		{% endif %}
 	</ul>
 	<br>

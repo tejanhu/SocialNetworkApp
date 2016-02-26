@@ -5,9 +5,12 @@ class Profile(models.Model):
 
 class Member(models.Model):
     username = models.CharField(max_length=16,primary_key=True)
+    s_ans = models.CharField(max_length=255)
     password = models.CharField(max_length=16)
     profile = models.OneToOneField(Profile, null=True)
     following = models.ManyToManyField("self", symmetrical=False)
+
+
 
     def __str__(self):
         return self.username
@@ -19,3 +22,10 @@ class Message(models.Model):
     pm = models.BooleanField(default=True)
     time = models.DateTimeField()
     text = models.CharField(max_length=4096)
+
+
+#class ValidatePassword(models.Model):
+   #password = models.CharField(max_length=16)
+   #passwordlength = models.IntegerField(max_length=)
+    #passcontainsuser = models.BooleanField(default=False)
+    #passcontainsalphnum = models.BooleanField(default=False)

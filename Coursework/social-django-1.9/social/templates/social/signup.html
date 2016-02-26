@@ -6,8 +6,33 @@
 <span class='info'>&#8658; You must be logged in to view this page.</span>
 <script src="{% static 'social/jquery-1.11.2.js' %}"></script>
 <script src="{% static 'social/ajax.js' %}"></script>
+<style type="text/css">
+  .passMeter-bad{color:#FF0000;}
+      .passMeter-low{color:#E66C2C;}
+      .passMeter-good{color:#2D98F3;}
+      .passMeter-strong{color:#006400;}
+</style>
 <br>
 <br>
+ <script type =text/javascript>
+        function checkStrength() {
+
+
+            var thepassword1 = document.body.getElementsByClassName('main')[0];
+            var thepassword2 = thepassword2.getElementsByTagName('form')[0];
+            var thepassword3 = thepassword3.getElementById('pass');
+            var thePassword4 = thepassword4.innerHTML;
+            var pattern = new RegExp("/[a-z]{2} [A-Z]{2}/")
+            var isPasswordFine = pattern.exec(thePassword4)
+            if (isPasswordFine) {
+                alert("You didn't write in the correct format")
+            }
+            else {
+                alert("You did write in the correct format")
+            }
+
+        }
+    </script>
 <div class='main'><h3>Please enter your details to sign up</h3>
 <form method='POST' action="/social/register/">
 	{% csrf_token %}
@@ -16,8 +41,15 @@
       <span id='info'></span>
       <br>
       <span class='fieldname'>Password</span>
-      <input type='text' maxlength='16' name='pass'><br>
+      <input type='password' maxlength='16' name='pass' id="pass" onmouseout="checkStrength()"><br>
       <span class='fieldname'>&nbsp;</span>
+    <br>
+      <p>Secret Question: What was the name of your elementary / primary school?</p>
+      <input type='text' maxlength='255' name='secret_answer'><br>
+      <span class='fieldname'>&nbsp;</span>
+      <br>
+      <h1 id =password-result></h1>
+
    <input type='submit' value='Sign up'>
 </form>
 </div>
