@@ -34,17 +34,14 @@ def signup(request):
 def register(request):
     u = request.POST['user']
     p = request.POST['pass']
-    op= request.POST['oldpass']
-    s= request.POST['secret_answer']
  #Below is what caused it to stop working
  #   form.instance.password = hash_password(clean['password'])
-    user = Member(username=u, password=p, s_ans=s, oldpassword=op)
+    user = Member(username=u, password=p)
     user.save()
     template = loader.get_template('social/user-registered.html')
     context = RequestContext(request, {
         'appname': appname,
-        'username' : u,
-        's_ans' :s
+        'username' : u
 
         })
     return HttpResponse(template.render(context))
@@ -269,8 +266,3 @@ def changepassword(request):
                 return HttpResponse("Something went wrong ")
         except Member.DoesNotExist:
             member=None
-def searchsomething(request,theusername):
-    membersFound= Member.objects.get(username__search=theusername)
-    template= loader.get_template('socials/resultsfound.html')
-    context= RequestContext(request,{'members':membersFound})
-    return HttpResponse(template.render(context))
