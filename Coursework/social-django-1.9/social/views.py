@@ -155,7 +155,7 @@ def members(request):
         #recommended followers
         listOFFOLS=[];
         for followee in following:
-           followee_friends= list(followee.following.all().exclude(Q(following__username=username)&Q(pk=username)).values())
+           followee_friends= list(followee.following.all().exclude(Q(following__username=username)&(Q(following__username=followee.username))))
            print ("some crap happened")
            listOFFOLS.extend(followee_friends)
         #render reponse
@@ -262,3 +262,16 @@ def changepassword(request):
                 return HttpResponse("Something went wrong ")
         except Member.DoesNotExist:
             member=None
+
+def uploadimage(request):
+    if 'theimage' not in request.POST:
+        template = loader.get_template('social/uploadimage.html')
+        return HttpResponse(template)
+    else:
+        someprint()
+
+
+
+def someprint():
+    print
+    "somecrap"

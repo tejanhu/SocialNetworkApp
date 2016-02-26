@@ -25,7 +25,7 @@
   {% if RF %}
            <h3> recommended members</h3>
            {% for rf in RF %}
-             {% if rf  not in following %}
+             {% if rf  not in following and rf not in followers %}
               <li><a href="?view={{ rf.username }}"> {{ rf.username }} </a>[<a href="?add={{ rf.username }}">follow</a>] </li>
 
              {% endif %}

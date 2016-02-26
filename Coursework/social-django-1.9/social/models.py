@@ -8,7 +8,7 @@ class Member(models.Model):
     password = models.CharField(max_length=16)
     profile = models.OneToOneField(Profile, null=True)
     following = models.ManyToManyField("self", symmetrical=False)
-
+    # profilepic= models.FileField()
     def __str__(self):
         return self.username
 
