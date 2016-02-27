@@ -2,25 +2,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Social Network: {{ appname }}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'social/styles.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'social/farbtastic.css' %}"/>
-
-
+	<title>Social Network: {{ appname }}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'social/styles.css' %}" />
 </head>
 <body>
-<center>
-    <canvas id='logo' width='624' height='96'> {{ appname }} </canvas>
-</center>
-{% if loggedin %}
-    <div class='appname'>{{ appname }} ({{ username }})</div>
-{% else %}
+	<center>
+	<canvas id='logo' width='624' height='96'> {{ appname }} </canvas>
+	</center>
+	{% if loggedin %}
+    <div class='appname'>{{ appname }} ({{ username }}) </div>
+	{% else %}
     <div class='appname'>{{ appname }}</div>
-{% endif %}
-<script src="{% static 'social/scripts.js' %}"></script>
-<br>
-<ul class='menu'>
-    {% if loggedin %}
+    {% endif %}
+    <script src="{% static 'social/scripts.js' %}"></script>
+	<br>
+	<ul class='menu'>
+		{% if loggedin %}
         <li><a href='/social/members/?view={{ username }}'>Home</a></li>
         <li><a href='/social/members/'>Members</a></li>
         <li><a href='/social/friends/'>Friends</a></li>
@@ -59,7 +56,7 @@
             function () {
                 $('#searchterm').farbtastic('#E6E6FA');
             }
-            
+
     )
 </script>
 
