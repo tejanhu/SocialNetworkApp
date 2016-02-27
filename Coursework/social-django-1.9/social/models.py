@@ -8,9 +8,10 @@ class Member(models.Model):
     password = models.CharField(max_length=16)
     profile = models.OneToOneField(Profile, null=True)
     following = models.ManyToManyField("self", symmetrical=False)
-    # profilepic= models.FileField()
+
     def __str__(self):
         return self.username
+
 
 
 class Message(models.Model):
@@ -19,3 +20,7 @@ class Message(models.Model):
     pm = models.BooleanField(default=True)
     time = models.DateTimeField()
     text = models.CharField(max_length=4096)
+
+class PreviousPasswords(models.Model):
+    user= models.ForeignKey(Member, on_delete=models.CASCADE)
+    password = models.CharField(max_length=16)

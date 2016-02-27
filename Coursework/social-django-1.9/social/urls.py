@@ -28,6 +28,10 @@ urlpatterns = [
     url(r'^checkuser/$', views.checkuser, name='checkuser'),
     # Allows them to change the password
     url(r'^changepassword/$', views.changepassword, name='changepassword'),
+    url(r'^uploadimage/$', views.uploadimage, name='uploadimage'),
+    url(r'^testypage/$', views.testprofilepic, name='testprofilepic'),
+    url(r'^searchsomething/(?P<user>\w*)/$', views.searchsomething, name='searchsomething'),
+    url(r'^recoverpassword/$', views.recoverpassword, name='recoverpassword'),
 ]
 
 

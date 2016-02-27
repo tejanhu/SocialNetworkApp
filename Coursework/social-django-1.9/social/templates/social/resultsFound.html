@@ -1,0 +1,12 @@
+{% extends "social/base.html" %}
+{% block content %}
+{% if peoplefound %}
+     Members with these names found :
+    {% for people in peoplefound %}
+       <a href="?view={{ people.username }}"> {{ people.username }} </a>
+    {% endfor %}
+    {% else %}
+        There weren't any members with these names
+{% endif %}
+
+{% endblock %}

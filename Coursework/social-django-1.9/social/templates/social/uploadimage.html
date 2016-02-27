@@ -1,0 +1,21 @@
+{% extends "social/base.html" %}
+
+{% block content %}
+<span class='info'>&#8658; You must be logged in to view this page.</span>
+<br>
+<br>
+<div class='main'>
+    {% if loggedin %}
+         <form method='POST' action="">
+        	{% csrf_token %}
+            <p> Click the browse to upload an image<p/>
+            <input type='file' maxlength='16' name='theimage'><br>
+            <span class='fieldname'>&nbsp;</span>
+            <input type='submit' value='ImageForm'>
+        </form>
+    {% else %}
+        <h3>Please enter your details to login</h3> 
+    {% endif %}
+</div>
+{% endblock %}
+

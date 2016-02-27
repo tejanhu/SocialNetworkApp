@@ -2,37 +2,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Social Network: {{ appname }}</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'social/styles.css' %}" />
+    <title>Social Network: {{ appname }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'social/styles.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'social/farbtastic.css' %}"/>
+
+
 </head>
 <body>
-	<center>
-	<canvas id='logo' width='624' height='96'> {{ appname }} </canvas>
-	</center>
-	{% if loggedin %}
-    <div class='appname'>{{ appname }} ({{ username }}) </div>
-	{% else %}
+<center>
+    <canvas id='logo' width='624' height='96'> {{ appname }} </canvas>
+</center>
+{% if loggedin %}
+    <div class='appname'>{{ appname }} ({{ username }})</div>
+{% else %}
     <div class='appname'>{{ appname }}</div>
-    {% endif %}
-    <script src="{% static 'social/scripts.js' %}"></script>
-	<br>
-	<ul class='menu'>
-		{% if loggedin %}
+{% endif %}
+<script src="{% static 'social/scripts.js' %}"></script>
+<br>
+<ul class='menu'>
+    {% if loggedin %}
         <li><a href='/social/members/?view={{ username }}'>Home</a></li>
         <li><a href='/social/members/'>Members</a></li>
         <li><a href='/social/friends/'>Friends</a></li>
         <li><a href='/social/messages/'>Messages</a></li>
         <li><a href='/social/profile/'>Edit Profile</a></li>
-        <li><a href='/social/logout/'>Log out</a></li></ul><br>	
-		{% else %}
-		<li><a href='/social/'>Home</a></li>
-		<li><a href="/social/signup/">Sign up</a></li>
-		<li><a href='/social/login/'>Log in</a></li>
-		{% endif %}
-	</ul>
-	<br>
-	{% block content %}
-	{% endblock %}
-	<br>
+        <li><a href='/social/logout/'>Log out</a></li>
+        <li><input name="user" id="searchterm"><a href=" {% url 'searchsomething'  user %}" id ="buttonlink"><input type="button" id="thebutton" onclick="textstuff()"></a></li>
+        </ul>
+
+        <br>
+
+    {% else %}
+        <li><a href='/social/'>Home</a></li>
+        <li><a href="/social/signup/">Sign up</a></li>
+        <li><a href='/social/login/'>Log in</a></li>
+        <li><input name="user " id="searchterm"><a href=" {% url 'searchsomething'  user %}" id="buttonlink"><input type="button" onclick="textstuff()"></a></li>
+    {% endif %}
+</ul>
+<br>
+<script src= "{% static 'social/jquery-1.11.2.js'%}">
+</script>
+
+<script src = "{% static 'social/searchFunctionality.js'%}">
+</script>
+
+<script >
+{#var thebody=document.body#}
+{#thebody.setAttribute("bgcolor","#E6E6FA")#}
+ document.body.style.backgroundColor = "#E6E6FA"
+</script>
+
+<script src="{% static 'social/farbtastic.js' %}"  type="text/javascript"></script>
+
+<script >
+    $(document).ready(
+            function () {
+                $('#searchterm').farbtastic('#E6E6FA');
+            }
+            
+    )
+</script>
+
+{% block content %}
+{% endblock %}
+<br>
 </body>
 </html>

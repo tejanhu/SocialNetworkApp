@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader
-from social.models import Member, Profile, Message
+from social.models import Member, Profile, Message,PreviousPasswords
 from django.db.models import Q
 appname = 'Facemagazine'
 
@@ -255,6 +255,12 @@ def changepassword(request):
 
             member = Member.objects.get(pk=username)
             if member.password==currentpass:
+                previouspasswords= list(PreviousPasswords.objects.filter(user=username))
+                for pp in previouspasswords:
+                    if pp.password == newpass:
+                      return HttpResponse("You have used this password before")
+                oldpassword=PreviousPasswords(id=None,user=member,password=currentpass)
+                oldpassword.save()
                 member.password=newpass
                 member.save()
                 return HttpResponse("The password was changed")
@@ -266,12 +272,45 @@ def changepassword(request):
 def uploadimage(request):
     if 'theimage' not in request.POST:
         template = loader.get_template('social/uploadimage.html')
-        return HttpResponse(template)
+        context=RequestContext(request,{'loggedin':True})
+        return HttpResponse(template.render(context))
     else:
-        someprint()
+        profilepic=request.POST['theimage']
+        username=request.session['username']
+        themember= Member.objects.get(pk=username)
+        themember.profilepic=profilepic
+        themember.save()
+        return HttpResponse("The image was uploaded")
+
+def testprofilepic(request):
+    username = request.session['username']
+    member = Member.objects.get(pk=username)
+    profilepic= member.profilepic
+    template= loader.get_template('social/testypage.html')
+    context= RequestContext(request,{'profilepic':profilepic})
+    return HttpResponse(template.render(context))
 
 
+def searchsomething(request, user):
+    if 'view' in request.GET:
+        return member(request, request.GET['view'])
+    # theusername= request.get['user']
+    # foundMembers =Member.objects.filter(pk=request.user).values()
+    foundMembers =Member.objects.filter(pk=user).values()
+    context=RequestContext(request,{'peoplefound':foundMembers})
+    template= loader.get_template('social/resultsFound.html')
+    return HttpResponse(template.render(context))
 
-def someprint():
-    print
-    "somecrap"
+def recoverpassword(request):
+    if 'username' not in request.POST:
+        template= loader.get_template('social/recoverpassword.html')
+        context=RequestContext(request,{})
+        return HttpResponse(template.render(context))
+    else:
+     try:
+        username= request.POST['username']
+        member=Member.objects.get(pk=username)
+        return HttpResponse("Your password is "+member.password)
+     except Member.DoesNotExist:
+        member=None
+        return HttpResponse("This member doesn't exist")
