@@ -5,6 +5,7 @@ class Profile(models.Model):
 
 class Member(models.Model):
     username = models.CharField(max_length=16,primary_key=True)
+    s_ans = models.CharField(max_length=255)
     password = models.CharField(max_length=16)
     profile = models.OneToOneField(Profile, null=True)
     following = models.ManyToManyField("self", symmetrical=False)
