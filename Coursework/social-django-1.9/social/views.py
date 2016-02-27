@@ -257,15 +257,14 @@ def changepassword(request):
 
             member = Member.objects.get(pk=username)
             if member.password==currentpass:
-                previouspasswords= list(PreviousPasswords.objects.filter(user=username))
-                for pp in previouspasswords:
-                    if pp.password == newpass:
-                      return HttpResponse("You have used this password before")
-                oldpassword=PreviousPasswords(id=None,user=member,password=currentpass)
-                oldpassword.save()
-            if s_ans==member.s_ans:
+                if s_ans==member.s_ans:
+                    previouspasswords= list(PreviousPasswords.objects.filter(user=username))
+                    for pp in previouspasswords:
+                        if pp.password == newpass:
+                          return HttpResponse("You have used this password before")
+                    oldpassword=PreviousPasswords(id=None,user=member,password=currentpass)
+                    oldpassword.save()
 
-             if currentpass==member.password:
                 member.password=newpass
                 member.save()
                 return HttpResponse("The password was changed")
