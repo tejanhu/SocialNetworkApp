@@ -269,26 +269,7 @@ def changepassword(request):
         except Member.DoesNotExist:
             member=None
 
-def uploadimage(request):
-    if 'theimage' not in request.POST:
-        template = loader.get_template('social/uploadimage.html')
-        context=RequestContext(request,{'loggedin':True})
-        return HttpResponse(template.render(context))
-    else:
-        profilepic=request.POST['theimage']
-        username=request.session['username']
-        themember= Member.objects.get(pk=username)
-        themember.profilepic=profilepic
-        themember.save()
-        return HttpResponse("The image was uploaded")
 
-def testprofilepic(request):
-    username = request.session['username']
-    member = Member.objects.get(pk=username)
-    profilepic= member.profilepic
-    template= loader.get_template('social/testypage.html')
-    context= RequestContext(request,{'profilepic':profilepic})
-    return HttpResponse(template.render(context))
 
 
 def searchsomething(request, user):
